@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Cartes Interactif</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- VUE 1 : MENU PRINCIPAL (4 cartes) -->
+        <div id="view-menu" class="view">
+            <div class="menu-grid" id="menu-grid">
+                <!-- Les 4 cartes "As" seront générées ici par le JS -->
+            </div>
+        </div>
+
+        <!-- VUE 2 : PLATEAU DE JEU (12 cartes) -->
+        <div id="view-suit" class="view hidden">
+            <div class="header">
+                <button id="btn-back" class="back-button">◀ Retour</button>
+                <h2 id="suit-title">Cartes</h2>
+            </div>
+            <div class="game-board" id="game-board">
+                <!-- Les 12 cartes seront générées ici par le JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
