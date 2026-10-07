@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+    font-family: sans-serif;
+    overflow: hidden; /* Empêche le défilement */
+}
+
+/* Le conteneur global (la table verte) */
+.app-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    background-color: #3b9e4a;
+    border-left: 5px solid #222;
+    border-right: 5px solid #222;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Gestion des vues */
+.view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* En-tête de la vue jeu (Bouton retour + Titre) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.back-button {
+    background-color: #2a7a35;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.back-button:hover {
+    background-color: #1f5c27;
+}
+
+#suit-title {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Grilles */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    height: 100%;
+    align-content: center; /* Centre les 4 cartes verticalement */
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, minmax(0, 1fr)); /* Empêche le dépassement */
+    gap: 15px;
+    flex-grow: 1; /* Prend l'espace restant sous le bouton retour */
+}
+
+/* Les cartes (Design commun) */
+.card {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Faux carreau vert */
+.card-front {
+    background-color: #43b354;
+    border: 3px solid #5bca6c;
+}
+.card-front::after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background-color: #5bca6c;
+    transform: rotate(45deg);
+}
+
+/* Face cachée */
+.card-back {
+    background-color: white;
+    color: #333;
+    transform: rotateY(180deg);
+    border: 2px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    flex-direction: column;
+}
