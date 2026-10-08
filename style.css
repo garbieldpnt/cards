@@ -68,32 +68,57 @@ body {
 /* Grilles */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 20px;
+    /* On limite la largeur des colonnes pour éviter que les cartes ne soient trop massives */
+    grid-template-columns: repeat(2, minmax(100px, 160px)); 
+    grid-auto-rows: max-content; 
+    gap: 30px; 
     height: 100%;
-    align-content: center; /* Centre les 4 cartes verticalement */
+    
+    /* Ces deux propriétés centrent la grille horizontalement et verticalement */
+    justify-content: center;
+    align-content: center;
 }
 
 .game-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, minmax(0, 1fr)); /* Empêche le dépassement */
+    grid-auto-rows: max-content; 
     gap: 15px;
-    flex-grow: 1; /* Prend l'espace restant sous le bouton retour */
+    flex-grow: 1;
+    
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    
+    /* On ajoute un espace à droite spécifiquement pour absorber la barre système */
+    padding-right: 15px; 
+    padding-bottom: 20px; 
+    
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+/* Masquer la scrollbar sur Chrome, Safari et Opera */
+.game-board::-webkit-scrollbar {
+    display: none;
 }
 
 /* Les cartes (Design commun) */
 .card {
     background-color: transparent;
     width: 100%;
-    height: 100%;
+    /* On remplace height: 100% par height: auto et on force le ratio */
+    height: auto; 
+    aspect-ratio: 2 / 3; 
+    
     perspective: 1000px;
     cursor: pointer;
+    position: relative; /* <-- Nouvelle ligne à ajouter */
 }
 
 .card-inner {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -118,18 +143,20 @@ body {
     box-sizing: border-box;
 }
 
-/* Faux carreau vert */
+/* La face visible (recto) avec l'image de la carte */
 .card-front {
-    background-color: #43b354;
-    border: 3px solid #5bca6c;
+    background-color: transparent; /* Plus de vert en arrière-plan */
+    border: none;                  /* Suppression de la bordure verte */
+    
+    /* Ces 3 lignes garantissent que l'image s'ajuste parfaitement sans être zoomée ni déformée */
+    background-size: contain; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    border-radius: 6px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Optionnel: petite ombre pour détacher la carte du tapis */
 }
-.card-front::after {
-    content: "";
-    width: 30px;
-    height: 30px;
-    background-color: #5bca6c;
-    transform: rotate(45deg);
-}
+
 
 /* Face cachée */
 .card-back {
